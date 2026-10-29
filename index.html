@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>拾音馆 Shi Yin Guan — 在六声九调里拾回一条街的声音</title>
+<meta name="description" content="拾音馆是一款用粤语声调讲故事的视觉小说。从一间收着旧唱片的铺子出发，走过市场街、电车区、旧城、河岸与戏棚，把整座城的声音一寸寸拾回来。">
+<link rel="icon" href="assets/icon.png">
+<style>
+  :root{
+    --ink:#0b2422;
+    --ink-2:#0f2f2c;
+    --ink-3:#143a36;
+    --gold:#e0b063;
+    --gold-soft:#f0cf98;
+    --amber:#e8894a;
+    --paper:#f6efe3;
+    --muted:rgba(246,239,227,.62);
+    --line:rgba(224,176,99,.22);
+    --serif:"Songti SC","STSong","Source Han Serif SC","Noto Serif SC","SimSun",serif;
+    --sans:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--ink);color:var(--paper);font-family:var(--sans);
+    line-height:1.75;-webkit-font-smoothing:antialiased;
+    background-image:radial-gradient(1200px 600px at 80% -10%,rgba(232,137,74,.16),transparent 60%),
+                     radial-gradient(900px 500px at 0% 20%,rgba(20,90,84,.35),transparent 60%);
+  }
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+  a{color:inherit;text-decoration:none}
+
+  /* ---------- hero ---------- */
+  .hero{position:relative;min-height:92vh;display:flex;align-items:flex-end;overflow:hidden}
+  .hero__bg{position:absolute;inset:0;background:url("assets/hero.jpg") center 40%/cover no-repeat;transform:scale(1.02)}
+  .hero__veil{position:absolute;inset:0;background:
+    linear-gradient(to top,var(--ink) 2%,rgba(11,36,34,.86) 32%,rgba(11,36,34,.25) 68%,rgba(11,36,34,.55) 100%)}
+  .hero__inner{position:relative;padding:0 24px 72px;max-width:1080px;margin:0 auto;width:100%}
+  .brand{display:flex;align-items:center;gap:14px;margin-bottom:26px}
+  .brand img{width:56px;height:56px;border-radius:13px;box-shadow:0 8px 28px rgba(0,0,0,.45)}
+  .brand span{font-size:13px;letter-spacing:.28em;color:var(--gold-soft);text-transform:uppercase}
+  h1{font-family:var(--serif);font-size:clamp(52px,9vw,104px);line-height:1.02;letter-spacing:.06em;
+     font-weight:600;text-shadow:0 4px 40px rgba(0,0,0,.55)}
+  h1 small{display:block;font-family:var(--sans);font-size:clamp(12px,1.6vw,15px);letter-spacing:.55em;
+     font-weight:400;color:var(--gold-soft);margin-top:18px;text-transform:uppercase}
+  .lede{max-width:640px;margin-top:26px;font-size:clamp(15px,1.9vw,18px);color:rgba(246,239,227,.86)}
+  .hero__meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
+  .tag{font-size:12.5px;letter-spacing:.06em;padding:7px 14px;border:1px solid var(--line);
+       border-radius:999px;color:var(--gold-soft);background:rgba(11,36,34,.55);backdrop-filter:blur(6px)}
+  .cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:38px;align-items:center}
+  .btn{display:inline-flex;align-items:center;gap:10px;padding:15px 30px;border-radius:999px;
+       font-size:15.5px;font-weight:600;letter-spacing:.04em;transition:.22s;border:1px solid transparent}
+  .btn--main{background:linear-gradient(135deg,var(--gold) 0%,var(--amber) 100%);color:#2a1a08;
+       box-shadow:0 12px 34px rgba(232,137,74,.32)}
+  .btn--main:hover{transform:translateY(-2px);box-shadow:0 18px 44px rgba(232,137,74,.44)}
+  .btn--ghost{border-color:var(--line);color:var(--gold-soft)}
+  .btn--ghost:hover{background:rgba(224,176,99,.1);border-color:rgba(224,176,99,.5)}
+  .btn small{font-weight:400;opacity:.72;font-size:12px}
+  .hero__note{font-size:12.5px;color:var(--muted);margin-top:14px}
+
+  /* ---------- stats ---------- */
+  .stats{border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+     background:linear-gradient(180deg,rgba(20,58,54,.5),rgba(11,36,34,.2))}
+  .stats__grid{display:grid;grid-template-columns:repeat(6,1fr);gap:0}
+  .stat{padding:30px 12px;text-align:center;border-right:1px solid rgba(224,176,99,.12)}
+  .stat:last-child{border-right:0}
+  .stat b{display:block;font-family:var(--serif);font-size:clamp(24px,3vw,34px);color:var(--gold);font-weight:600}
+  .stat span{display:block;font-size:12px;color:var(--muted);letter-spacing:.08em;margin-top:6px}
+
+  /* ---------- sections ---------- */
+  section{padding:96px 0}
+  .kicker{font-size:12px;letter-spacing:.3em;color:var(--gold);text-transform:uppercase;margin-bottom:16px}
+  h2{font-family:var(--serif);font-size:clamp(28px,4vw,40px);font-weight:600;letter-spacing:.04em;line-height:1.3}
+  .sub{margin-top:16px;color:var(--muted);max-width:680px;font-size:15.5px}
+
+  .feat{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:48px}
+  .card{padding:28px 26px;border:1px solid rgba(224,176,99,.16);border-radius:16px;
+        background:linear-gradient(160deg,rgba(20,58,54,.55),rgba(11,36,34,.35));transition:.25s}
+  .card:hover{border-color:rgba(224,176,99,.42);transform:translateY(-3px);background:linear-gradient(160deg,rgba(24,68,63,.7),rgba(11,36,34,.45))}
+  .card h3{font-family:var(--serif);font-size:19px;color:var(--gold-soft);margin-bottom:10px;letter-spacing:.03em}
+  .card p{font-size:14px;color:rgba(246,239,227,.7);line-height:1.8}
+  .card .num{font-size:11px;letter-spacing:.2em;color:rgba(224,176,99,.5);display:block;margin-bottom:14px}
+
+  /* ---------- gallery ---------- */
+  .gal{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px}
+  .shot{position:relative;overflow:hidden;border-radius:14px;border:1px solid rgba(224,176,99,.15);aspect-ratio:3/2}
+  .shot img{width:100%;height:100%;object-fit:cover;transition:transform .7s ease,filter .4s}
+  .shot:hover img{transform:scale(1.05);filter:saturate(1.06)}
+  .shot figcaption{position:absolute;left:0;right:0;bottom:0;padding:34px 16px 13px;font-size:13px;
+     letter-spacing:.06em;background:linear-gradient(to top,rgba(8,26,25,.92),transparent)}
+  .shot figcaption i{font-style:normal;color:var(--gold);font-size:11px;letter-spacing:.16em;margin-right:8px}
+
+  /* ---------- download ---------- */
+  .dl{display:grid;grid-template-columns:1.1fr .9fr;gap:44px;align-items:start;margin-top:44px}
+  .dl__box{border:1px solid rgba(224,176,99,.24);border-radius:18px;padding:34px;
+     background:linear-gradient(150deg,rgba(24,68,63,.6),rgba(11,36,34,.5))}
+  .dl__box h3{font-family:var(--serif);font-size:22px;margin-bottom:8px}
+  .dl__box .st{font-size:13px;color:var(--amber);letter-spacing:.06em;margin-bottom:22px}
+  .dl__box .btn{width:100%;justify-content:center}
+  .dl__box .alt{display:block;text-align:center;font-size:12.5px;color:var(--muted);margin-top:14px}
+  table{width:100%;border-collapse:collapse;font-size:14px}
+  th,td{text-align:left;padding:11px 0;border-bottom:1px solid rgba(224,176,99,.12);vertical-align:top}
+  th{color:var(--gold-soft);font-weight:500;width:96px;font-size:13px;letter-spacing:.05em}
+  td{color:rgba(246,239,227,.76)}
+
+  /* ---------- notes ---------- */
+  .notes{margin-top:44px;padding:26px 28px;border-left:2px solid rgba(224,176,99,.4);
+     background:rgba(20,58,54,.3);border-radius:0 12px 12px 0;font-size:13.5px;color:rgba(246,239,227,.68)}
+  .notes b{color:var(--gold-soft);font-weight:600}
+  .notes ul{list-style:none;margin-top:10px}
+  .notes li{padding-left:16px;position:relative;margin-top:6px}
+  .notes li::before{content:"";position:absolute;left:0;top:11px;width:5px;height:1px;background:var(--gold)}
+
+  footer{border-top:1px solid var(--line);padding:38px 0;font-size:12.5px;color:rgba(246,239,227,.45)}
+  footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+  @media(max-width:900px){
+    .stats__grid{grid-template-columns:repeat(3,1fr)}
+    .stat:nth-child(3){border-right:0}
+    .stat:nth-child(-n+3){border-bottom:1px solid rgba(224,176,99,.12)}
+    .feat{grid-template-columns:1fr 1fr}
+    .gal{grid-template-columns:1fr 1fr}
+    .dl{grid-template-columns:1fr;gap:32px}
+  }
+  @media(max-width:620px){
+    section{padding:70px 0}
+    .feat,.gal{grid-template-columns:1fr}
+    .stats__grid{grid-template-columns:repeat(2,1fr)}
+    .stat{border-right:0!important;border-bottom:1px solid rgba(224,176,99,.12)}
+    .hero{min-height:88vh}
+  }
+</style>
+</head>
+<body>
+
+<!-- hero -->
+<header class="hero">
+  <div class="hero__bg"></div>
+  <div class="hero__veil"></div>
+  <div class="hero__inner">
+    <div class="brand">
+      <img src="assets/icon.png" alt="拾音馆图标">
+      <span>Shi Yin Guan · Dev Build v0.5</span>
+    </div>
+    <h1>拾音馆<small>a story about tones</small></h1>
+    <p class="lede">一间收着旧唱片的铺子，一条会说话的街。<br>
+    六声九调不是课本上的符号——它是市场讨价还价的尾音，是电车进站前的报站，是阿婆喊你返来食饭的那一声上扬。</p>
+    <div class="hero__meta">
+      <span class="tag">视觉小说</span>
+      <span class="tag">粤语声调</span>
+      <span class="tag">36 段情境任务</span>
+      <span class="tag">13 个区域</span>
+      <span class="tag">Windows 开发试玩</span>
+    </div>
+    <div class="cta">
+      <a class="btn btn--main" href="#download">下载试玩版 <small>· Windows</small></a>
+      <a class="btn btn--ghost" href="#world">看看这座城</a>
+    </div>
+    <p class="hero__note">主线完整可通关 · 解压即玩 · 无需安装</p>
+  </div>
+</header>
+
+<!-- stats -->
+<div class="stats">
+  <div class="wrap stats__grid">
+    <div class="stat"><b>36</b><span>情境任务</span></div>
+    <div class="stat"><b>13</b><span>可探索区域</span></div>
+    <div class="stat"><b>150</b><span>汉字 / 161 读音</span></div>
+    <div class="stat"><b>2040</b><span>音节表</span></div>
+    <div class="stat"><b>19</b><span>原创场景</span></div>
+    <div class="stat"><b>80</b><span>表情立绘</span></div>
+  </div>
+</div>
+
+<!-- features -->
+<section id="about">
+  <div class="wrap">
+    <p class="kicker">About</p>
+    <h2>声调是玩法，不是考点</h2>
+    <p class="sub">大多数语言学习产品把声调做成听力题。拾音馆把它做成一间铺子的生意：你要把六调听准，才修得好那台合音台；要把声母分清，市场街的声闸才会为你打开。</p>
+
+    <div class="feat">
+      <div class="card">
+        <span class="num">01</span>
+        <h3>从调值开始的手艺</h3>
+        <p>六调与四声母是第一课。展柜里放的是音高笔画，合音台上要对准的不是分数，是那一声该怎么拐。</p>
+      </div>
+      <div class="card">
+        <span class="num">02</span>
+        <h3>反切选锚</h3>
+        <p>先点两张熟字卡，再把声母与韵母推上声轨。用你已经在说的字，去够你还不认识的字。</p>
+      </div>
+      <div class="card">
+        <span class="num">03</span>
+        <h3>一条街一个任务</h3>
+        <p>市场四店与开市母带、电车四站与末班车、旧城三片段、河岸三采声点、戏棚四拍练习——修好一条街，解锁一套衣服。</p>
+      </div>
+      <div class="card">
+        <span class="num">04</span>
+        <h3>拾音册</h3>
+        <p>见过的字、听过的音、用过的例句都留在册子里。2040 个有效音节，随时翻，随时接驳回已经走过的地方。</p>
+      </div>
+      <div class="card">
+        <span class="num">05</span>
+        <h3>不挡主线</h3>
+        <p>拼音本可以跳过、可以续看。学得慢不会卡住剧情，学得快也没有额外惩罚——它只是把话说得更清楚一点。</p>
+      </div>
+      <div class="card">
+        <span class="num">06</span>
+        <h3>声音全是自己做的</h3>
+        <p>环境声、节拍、雨声、电车铃，都是程序合成；音高示意是纯音。没有一处借用他人的音轨。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- gallery -->
+<section id="world">
+  <div class="wrap">
+    <p class="kicker">The City</p>
+    <h2>从拾音馆出发，走到声音节</h2>
+    <p class="sub">拾音馆 → 市场街 → 电车区 → 旧城 → 河岸 → 戏棚 → 中央调音台。十三个区域，每一个都有自己的底噪。</p>
+    <div class="gal">
+      <figure class="shot"><img src="assets/oldtown.jpg" alt="旧城"><figcaption><i>旧城</i>录音室与三段旧片段</figcaption></figure>
+      <figure class="shot"><img src="assets/tram.jpg" alt="电车区"><figcaption><i>电车区</i>四站，和一趟末班车</figcaption></figure>
+      <figure class="shot"><img src="assets/river.jpg" alt="河岸"><figcaption><i>河岸</i>三个采声点与一条母带</figcaption></figure>
+      <figure class="shot"><img src="assets/theatre.jpg" alt="戏棚"><figcaption><i>戏棚</i>四拍练习，逐拍辅助</figcaption></figure>
+      <figure class="shot"><img src="assets/teahouse.jpg" alt="茶楼"><figcaption><i>茶楼</i>市场四店之一</figcaption></figure>
+      <figure class="shot"><img src="assets/library.jpg" alt="图书馆"><figcaption><i>图书馆</i>大学体验周支线</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- download -->
+<section id="download">
+  <div class="wrap">
+    <p class="kicker">Download</p>
+    <h2>下载开发试玩版</h2>
+    <p class="sub">当前是主线完整的开发试玩：能从头走到声音节，但美术、语音与难度仍在打磨。</p>
+
+    <div class="dl">
+      <div class="dl__box">
+        <h3>Shi Yin Guan v0.5</h3>
+        <div class="st">Windows 10 / 11 · x64 · 便携版</div>
+        <a class="btn btn--main" id="dl-btn" href="#">下载压缩包 <small id="dl-size">· 198 MB</small></a>
+        <span class="alt">解压后双击 ShiYinGuan.exe 即可，不需要安装</span>
+      </div>
+      <div>
+        <table>
+          <tr><th>版本</th><td>v0.5 开发试玩（2026-10-28 构建）</td></tr>
+          <tr><th>引擎</th><td>Unity 6000.0.85f1 · URP</td></tr>
+          <tr><th>平台</th><td>Windows 10 / 11，64 位</td></tr>
+          <tr><th>操作</th><td>鼠标为主；← → 切换地点，Enter / E 进入，Tab 拾音册，Esc 设置</td></tr>
+          <tr><th>存档</th><td>自动保存到本机 AppData，支持断电恢复与损坏文件保留</td></tr>
+          <tr><th>在线版</th><td>正在做浏览器版本，暂时请先下载客户端</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="notes">
+      <b>关于这个版本，需要说明白的事</b>
+      <ul>
+        <li>美术是待替换的开发稿，风格尚未定案；19 张场景与 80 张立绘会继续重做。</li>
+        <li>音高播放是纯音示意，不是人声；目前没有录音采集，也没有发音评分。</li>
+        <li>剧情与时刻表为虚构教学情境，地名与店铺为创作，不对应真实街景。</li>
+        <li>粤语内容仍需母语审校，字典例句的 98 条标注为待复核。</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>拾音馆 Shi Yin Guan · 独立开发 · 2026</span>
+    <span>Unity 6000.0.85f1 / URP · 字体 Noto Sans CJK HK（SIL OFL）</span>
+  </div>
+</footer>
+
+<script>
+  // 下载地址在发布后由下方常量填入
+  const DOWNLOAD_URL = "";
+  const btn = document.getElementById('dl-btn');
+  if (DOWNLOAD_URL) { btn.href = DOWNLOAD_URL; }
+  else {
+    btn.addEventListener('click', e => {
+      e.preventDefault();
+      btn.querySelector('small').textContent = '· 链接准备中';
+    });
+  }
+</script>
+</body>
+</html>
